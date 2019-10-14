@@ -2,13 +2,12 @@
 
 
 import requests
-import urllib.request
 import time
 from bs4 import BeautifulSoup
 import re
 
 from emails import emails
-
+ 
 # Set the URL you want to webscrape from
 url = 'https://www.novinky.cz/zahranicni/svet'
 
@@ -53,10 +52,12 @@ for cell in soup.select('div.g_f1 > ul > li > div > div > div > a:nth-child(1)')
   heading = heading.replace('</h1>', '')
 
   print("Sending", heading,"to",data['email'])
+  requests.post(emailReUrl, data=data, allow_redirects=True)
+
   emailIndex += 1
+
   if len(emails) == emailIndex:
     break
-  #requests.post(emailReUrl, data=data, allow_redirects=True)
 
 if len(emails) < emailIndex:
   print("Bruh need moar")
