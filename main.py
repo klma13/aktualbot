@@ -5,12 +5,14 @@ import requests
 import time
 from bs4 import BeautifulSoup
 import re
+import yagmail
+
 
 from emails import emails
- 
+from emails import auth
+
 # Set the URL you want to webscrape from
 url = 'https://www.novinky.cz/zahranicni/svet'
-
 
 print("Making a request to",url)
 
@@ -43,7 +45,6 @@ for cell in soup.select('div.g_f1 > ul > li > div > div > div > a:nth-child(1)')
   #print(articleText)
   print("\n ====================================== \n")
 
-  emailReUrl = "https://hook.integromat.com/9k5llgs07x7mzm4m89g7l6fdt40p8o3g"
   data = {
     "email": emails[emailIndex],
     "msg" : articleText
@@ -52,12 +53,16 @@ for cell in soup.select('div.g_f1 > ul > li > div > div > div > a:nth-child(1)')
   heading = heading.replace('</h1>', '')
 
   print("Sending", heading,"to",data['email'])
-  requests.post(emailReUrl, data=data, allow_redirects=True)
 
+  try:
+      yag = yagmail.SMTP(auth[0],auth[1])
+      yag.send('mackczgames@gmail.com', 'Aktualbot', data['msg'])
+  except:
+      print("Bruh")
   emailIndex += 1
 
   if len(emails) == emailIndex:
     break
 
-if len(emails) < emailIndex:
+if len(emails) > emailIndex:
   print("Bruh need moar")
