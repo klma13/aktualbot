@@ -1,6 +1,3 @@
-# Import libraries
-
-
 import requests
 import time
 from bs4 import BeautifulSoup
@@ -56,7 +53,9 @@ for cell in soup.select('div.g_f1 > ul > li > div > div > div > a:nth-child(1)')
 
   try:
       yag = yagmail.SMTP(auth[0],auth[1])
-      yag.send('mackczgames@gmail.com', 'Aktualbot', data['msg'])
+      #yag.send(data['email'], 'Aktualbot', data['msg'])
+      #yag.send("mackczgames@gmail.com", 'Aktualbot', data['msg'])
+
   except:
       print("Bruh")
   emailIndex += 1
@@ -65,4 +64,7 @@ for cell in soup.select('div.g_f1 > ul > li > div > div > div > a:nth-child(1)')
     break
 
 if len(emails) > emailIndex:
-  print("Bruh need moar")
+  if (len(emails) - emailIndex)-1 > 0:
+    print("Bruh need more articles for " +str(emails[emailIndex]) +" and "+ str((len(emails) - emailIndex)-1)+ " more")
+  else:
+    print("Bruh need one more article for " +str(emails[emailIndex]))
