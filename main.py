@@ -15,5 +15,10 @@ soup = BeautifulSoup(response.text, "html.parser")
 
 for cell in soup.select('div.g_f1 > ul > li > div > div > div > a:nth-child(1)'):
   print(cell['href'])
-   	#download_url = 'http://web.mta.info/developers/'+ link
-  	#urllib.request.urlretrieve(download_url,'./'+link[link.find('/turnstile_')+1:]) 
+  responseAr = requests.get(cell['href'])
+  soupAr = BeautifulSoup(responseAr.text, "html.parser")
+  for textDiv in soupAr.select('div.f_cH > p:nth-child(1)'):
+    print(textDiv.getText())
+    
+
+
