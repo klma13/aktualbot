@@ -16,9 +16,19 @@ print("Got index")
 soup = BeautifulSoup(response.text, "html.parser")
 
 for cell in soup.select('div.g_f1 > ul > li > div > div > div > a:nth-child(1)'):
+  articleText = ""
   print(cell['href'])
+  print("\n")
+  time.sleep(0.2)
+
   responseAr = requests.get(cell['href'])
   soupAr = BeautifulSoup(responseAr.text, "html.parser")
+
+  for textDiv in soupAr.select('h1.d_w'):
+    articleText += "<h1>"+str(textDiv) + "</h1>"
+  for textDiv in soupAr.select('.g_fY > p:nth-child(1)'):
+    articleText += str(textDiv)
+
   for textDiv in soupAr.select('div.f_cH > p:nth-child(1)'):
     articleText += str(textDiv)
 
@@ -30,4 +40,4 @@ for cell in soup.select('div.g_f1 > ul > li > div > div > div > a:nth-child(1)')
     "email": "filip.tronicek@seznam.cz",   
     "msg" : articleText
   }
-  #requests.post(emailReUrl, data=data, allow_redirects=True)
+  requests.post(emailReUrl, data=data, allow_redirects=True)
