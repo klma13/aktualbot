@@ -5,11 +5,11 @@ import re
 import yagmail
 
 
-from emails import emails
+from emails2 import emails
 from emails import auth
 
 # Set the URL you want to webscrape from
-url = 'https://www.novinky.cz/zahranicni/svet'
+url = 'https://www.novinky.cz/kultura'
 
 print("Making a request to",url)
 
