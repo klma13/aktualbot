@@ -22,7 +22,7 @@ emailIndex = 0
 # Parse HTML and save to BeautifulSoup object
 soup = BeautifulSoup(response.text, "html.parser")
 
-for cell in soup.select('div.g_fW:nth-child(2) > ul > li > div > div > div > a:nth-child(1)'):
+for cell in soup.select('div.g_ai > ul:nth-child(1) > li > div > div > div > a:nth-child(1)'):
   print("article got")
   articleText = ""
   print(cell['href'])
@@ -54,8 +54,8 @@ for cell in soup.select('div.g_fW:nth-child(2) > ul > li > div > div > div > a:n
 
   try:
       yag = yagmail.SMTP(auth[0],auth[1])
-      yag.send(data['email'], 'Aktualbot', data['msg'])
-      #yag.send("mackczgames@gmail.com", 'Aktualbot', data['msg'])
+      #yag.send(data['email'], 'Aktualbot', data['msg'])
+      yag.send("mackczgames@gmail.com", 'Aktualbot', data['msg'])
       emailIndex += 1
 
   except:
